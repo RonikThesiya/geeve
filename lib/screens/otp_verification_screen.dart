@@ -135,6 +135,11 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   child: Text("Resend code in 0:30",style: TextStyle(color: Color(0xfffa7914)),),
                 ),
 
+
+                TextButton(onPressed: (){
+                  Navigator.pushNamed(context, "sigin" );
+                }, child: Text("Login"))
+
               ],
             ),
           ),

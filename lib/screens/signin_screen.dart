@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:geeve/screens/const.dart';
 
 class SignInScreen extends StatefulWidget {
+
   const SignInScreen({Key? key}) : super(key: key);
 
   @override
@@ -10,10 +12,16 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
 
   bool ischecked = false;
+  TextEditingController txtemaillogin = TextEditingController();
+  TextEditingController txtpasswordogin = TextEditingController();
 
 
   @override
   Widget build(BuildContext context) {
+
+    List email = ModalRoute.of(context)!.settings.arguments as List;
+    print(email);
+
     return SafeArea(
         child: Scaffold(
             backgroundColor: Color(0xffffffff),
@@ -40,6 +48,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         Padding(
                           padding: const EdgeInsets.only(top: 50,left: 25, right: 25),
                           child: TextField(
+                            controller: txtemaillogin,
                             decoration: InputDecoration(
                               prefixIcon: Icon(Icons.email_outlined),
                               prefixIconColor: Color(0xff7d7f86),
@@ -59,6 +68,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           padding:
                           const EdgeInsets.only(top: 25, left: 25, right: 25),
                           child: TextField(
+                              controller: txtpasswordogin,
                             decoration: InputDecoration(
                               prefixIcon: Icon(Icons.key),
                               prefixIconColor: Color(0xff7d7f86),
@@ -114,7 +124,25 @@ class _SignInScreenState extends State<SignInScreen> {
                                   ),
 
                                   onPressed: () {
-                                    Navigator.pushReplacementNamed(context, "otp");
+
+
+
+
+                                    if(emailList.contains(txtemaillogin.value.text )){
+                                      if( passwordList.contains(txtpasswordogin.value.text))
+                                        {
+                                          Navigator.pushReplacementNamed(context, "otp");
+                                        }
+                                      else{
+                                        showDialog(context: context, builder: (context){
+                                          return AlertDialog(
+                                            title: Text("Email or password is inncorrect`"),
+                                          );
+                                        });
+                                      }
+                                    }
+
+
                                   },
                                   child: Text(
                                     "Login",
