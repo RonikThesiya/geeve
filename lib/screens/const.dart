@@ -1,11 +1,15 @@
+List<userDetails> dataList = [];
+List<userDetails> data = [];
 
-List<String> emailList = [];
-List<String> passwordList = [];
-
-class userDetails
-{
-  String? firstname,lastname,phone,email,password;
+class userDetails {
+  String firstname, lastname, phone, email, password,rePassword;
 
   userDetails(
-      this.firstname, this.lastname, this.phone, this.email, this.password);
+      {required this.firstname,
+      required this.lastname,
+      required this.phone,
+      required this.email,
+      required this.password,
+      required this.rePassword,
+      });
 }

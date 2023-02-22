@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geeve/screens/const.dart';
+import 'package:geeve/screens/signup_screen.dart';
 
 class NonprofitScreen extends StatefulWidget {
   const NonprofitScreen({Key? key}) : super(key: key);
@@ -87,9 +89,14 @@ class _NonprofitScreenState extends State<NonprofitScreen> {
                         SizedBox(
                           width: 15,
                         ),
-                        Icon(Icons.dashboard,color: c1,),
+                        Image.asset(
+                          "assets/dashboard.png",
+                          color: c1,
+                          height: 18,
+                          width: 18,
+                        ),
                         SizedBox(
-                          width: 5,
+                          width: 15,
                         ),
                         Text(
                           "Dashboard",
@@ -126,13 +133,21 @@ class _NonprofitScreenState extends State<NonprofitScreen> {
                       SizedBox(
                         width: 15,
                       ),
-                      Icon(Icons.monetization_on_rounded, color: c2),
+                      Image.asset(
+                        "assets/donation.png",
+                        color: c2,
+                        height: 20,
+                        width: 20,
+                      ),
                       SizedBox(
                         width: 15,
                       ),
-                      Text(
-                        "Donation Pages",
-                        style: TextStyle(fontSize: 18, color: c2),
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Donation Pages",
+                          style: TextStyle(fontSize: 18, color: c2),
+                        ),
                       ),
                     ],
                   ),
@@ -164,7 +179,12 @@ class _NonprofitScreenState extends State<NonprofitScreen> {
                       SizedBox(
                         width: 15,
                       ),
-                      Icon(Icons.perm_phone_msg_outlined, color: c3),
+                      Image.asset(
+                        "assets/text2give.png",
+                        color: c3,
+                        height: 20,
+                        width: 20,
+                      ),
                       SizedBox(
                         width: 15,
                       ),
@@ -202,7 +222,12 @@ class _NonprofitScreenState extends State<NonprofitScreen> {
                       SizedBox(
                         width: 15,
                       ),
-                      Icon(Icons.add_card_outlined, color: c4),
+                      Image.asset(
+                        "assets/transaction.png",
+                        color: c4,
+                        height: 20,
+                        width: 20,
+                      ),
                       SizedBox(
                         width: 15,
                       ),
@@ -240,7 +265,12 @@ class _NonprofitScreenState extends State<NonprofitScreen> {
                       SizedBox(
                         width: 15,
                       ),
-                      Icon(Icons.analytics, color: c5),
+                      Image.asset(
+                        "assets/analystic.png",
+                        color: c5,
+                        height: 20,
+                        width: 20,
+                      ),
                       SizedBox(
                         width: 15,
                       ),
@@ -278,7 +308,12 @@ class _NonprofitScreenState extends State<NonprofitScreen> {
                       SizedBox(
                         width: 15,
                       ),
-                      Icon(Icons.settings, color: c6),
+                      Image.asset(
+                        "assets/setting.png",
+                        color: c6,
+                        height: 20,
+                        width: 20,
+                      ),
                       SizedBox(
                         width: 15,
                       ),
@@ -300,12 +335,10 @@ class _NonprofitScreenState extends State<NonprofitScreen> {
                             shadowColor: Color(0xffdee1e6),
                             elevation: 10,
                             backgroundColor: Color(0xfffa7914),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))
-
-                        ),
-
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50))),
                         onPressed: () {
-                          Navigator.pushReplacementNamed(context, "otp");
+                          Navigator.pushReplacementNamed(context, "signup");
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -315,7 +348,10 @@ class _NonprofitScreenState extends State<NonprofitScreen> {
                               style: TextStyle(fontSize: 16),
                             ),
                             SizedBox(width: 10),
-                            Icon(Icons.logout,color: Colors.white,)
+                            Icon(
+                              Icons.logout,
+                              color: Colors.white,
+                            )
                           ],
                         ))),
               ),
@@ -329,9 +365,7 @@ class _NonprofitScreenState extends State<NonprofitScreen> {
       appBar: AppBar(
         toolbarHeight: 100,
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-
-                bottomRight: Radius.circular(30))),
+            borderRadius: BorderRadius.only(bottomRight: Radius.circular(30))),
         backgroundColor: Color(0xfffa7914),
         title: TextField(
           decoration: InputDecoration(
@@ -364,7 +398,7 @@ class _NonprofitScreenState extends State<NonprofitScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 35,left: 35),
+                    padding: const EdgeInsets.only(top: 35, left: 35),
                     child: Text(
                       "Suggestions",
                       style: TextStyle(fontSize: 18, color: Color(0xfffa7914)),
@@ -376,37 +410,99 @@ class _NonprofitScreenState extends State<NonprofitScreen> {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 35, left: 35, right: 35),
                   child: ListView.builder(
-                      itemCount: 6,
+                      itemCount: dataList.length,
                       itemBuilder: (context, index) {
                         return Container(
                           height: 70,
                           decoration: BoxDecoration(
                               border: Border(
-                                top: BorderSide(
-                                    width: 0.5, color: Color(0xff7d7f86)),
-                                bottom: BorderSide(
-                                    width: 0.5, color: Color(0xff7d7f86)),
-                              )),
+                            top: BorderSide(width: 0.5, color: Colors.black26),
+                            bottom:
+                                BorderSide(width: 0.5, color: Colors.black26),
+                          )),
                           alignment: Alignment.centerLeft,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Jesus House Toronto",
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text("Flat no 5. st no 55, vaushon, ontario",style: TextStyle(fontSize: 10,color: Color(0xff7d7f86)),),
-
-                                ],
+                              Container(
+                                // height: MediaQuery.of(context).size.height *
+                                //     0.4 /
+                                //     5,
+                                // width: MediaQuery.of(context).size.height * 0.22,
+                                alignment: Alignment.centerLeft,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "${dataList[index].firstname} "
+                                      "${dataList[index].lastname}",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      dataList[index].phone!,
+                                      style: TextStyle(
+                                          fontSize: 10,
+                                          color: Color(0xff7d7f86)),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              Text("Non Profit",style: TextStyle(fontSize: 14,color: Color(0xff7d7f86)),),
-                              Icon(Icons.navigate_next,size: 50,color: Color(0xfffa7914),)
+                              Container(
+                                  // height: MediaQuery.of(context).size.height * 0.4 / 5,
+                                  // width:
+                                  //     MediaQuery.of(context).size.height * 0.08,
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    dataList[index].password!,
+                                    style: TextStyle(
+                                        fontSize: 14, color: Color(0xff7d7f86)),
+                                  )),
+                              IconButton(
+                                  onPressed: () {
+                                    data.add(userDetails(
+                                      firstname: dataList[index].firstname,
+                                      lastname: dataList[index].lastname,
+                                      phone: dataList[index].phone,
+                                      email: dataList[index].email,
+                                      password: dataList[index].password,
+                                      rePassword: dataList[index].rePassword,
+                                    ));
+
+                                    print(dataList[index].firstname);
+                                    print(dataList[index].lastname);
+                                    print(dataList[index].phone);
+                                    print(dataList[index].email);
+                                    print(dataList[index].password);
+                                    print(dataList[index].rePassword);
+
+                                    // dataList[index].firstname.replaceAll("${data[index].firstname}", "${dataList[index].firstname}");
+                                    // userDetails u1 = userDetails(
+                                    //   firstname: dataList[index].firstname,
+                                    //   email: dataList[index].email,
+                                    //   lastname: dataList[index].lastname,
+                                    //   password: dataList[index].password,
+                                    //   phone: dataList[index].phone,
+                                    //   rePassword: dataList[index].rePassword,
+                                    // );
+
+                                    // Navigator.push(context, MaterialPageRoute(builder: (context){Sig}));
+
+                                    Navigator.pushNamed(context, 'signup',arguments: data[index]);
+                                    // Navigator.pushReplacementNamed(
+                                    //     context, 'signup',
+                                    //     arguments: dataList[index]);
+                                  },
+                                  icon: Icon(
+                                    Icons.edit,
+                                    size: 30,
+                                    color: Color(0xfffa7914),
+                                  ))
                             ],
                           ),
                         );

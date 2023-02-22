@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:geeve/screens/const.dart';
+import 'package:geeve/screens/otp_verification_screen.dart';
 
 class SignInScreen extends StatefulWidget {
-
   const SignInScreen({Key? key}) : super(key: key);
 
   @override
@@ -10,17 +10,17 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-
   bool ischecked = false;
+
+
+
   TextEditingController txtemaillogin = TextEditingController();
   TextEditingController txtpasswordogin = TextEditingController();
 
 
   @override
   Widget build(BuildContext context) {
-
     List email = ModalRoute.of(context)!.settings.arguments as List;
-    print(email);
 
     return SafeArea(
         child: Scaffold(
@@ -36,17 +36,17 @@ class _SignInScreenState extends State<SignInScreen> {
                 Padding(
                   padding: const EdgeInsets.only(top: 60),
                   child: SingleChildScrollView(
-
                     child: Column(
                       children: [
                         Center(
                             child: Image.asset(
-                              "assets/logo.png",
-                              height: 120,
-                              width: 180,
-                            )),
+                          "assets/logo.png",
+                          height: 120,
+                          width: 180,
+                        )),
                         Padding(
-                          padding: const EdgeInsets.only(top: 50,left: 25, right: 25),
+                          padding: const EdgeInsets.only(
+                              top: 50, left: 25, right: 25),
                           child: TextField(
                             controller: txtemaillogin,
                             decoration: InputDecoration(
@@ -54,21 +54,22 @@ class _SignInScreenState extends State<SignInScreen> {
                               prefixIconColor: Color(0xff7d7f86),
                               hintText: "Your email  address",
                               hintStyle: TextStyle(color: Color(0xff7d7f86)),
-
                               filled: true,
                               fillColor: Color(0xfff6f6f6),
                               enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Color(0xfff6f6f6)),
+                                borderSide:
+                                    BorderSide(color: Color(0xfff6f6f6)),
                                 borderRadius: BorderRadius.circular(20),
                               ),
                             ),
                           ),
                         ),
                         Padding(
-                          padding:
-                          const EdgeInsets.only(top: 25, left: 25, right: 25),
-                          child: TextField(
-                              controller: txtpasswordogin,
+                          padding: const EdgeInsets.only(
+                              top: 25, left: 25, right: 25),
+                          child: TextFormField(
+                            obscureText: true,
+                            controller: txtpasswordogin,
                             decoration: InputDecoration(
                               prefixIcon: Icon(Icons.key),
                               prefixIconColor: Color(0xff7d7f86),
@@ -77,26 +78,26 @@ class _SignInScreenState extends State<SignInScreen> {
                               filled: true,
                               fillColor: Color(0xfff6f6f6),
                               enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Color(0xfff6f6f6)),
+                                borderSide:
+                                    BorderSide(color: Color(0xfff6f6f6)),
                                 borderRadius: BorderRadius.circular(20),
                               ),
                             ),
                           ),
                         ),
-
                         Padding(
-                          padding:
-                          const EdgeInsets.only(left: 15, right: 20, top: 25),
+                          padding: const EdgeInsets.only(
+                              left: 15, right: 20, top: 25),
                           child: Row(
                             children: [
                               Transform.scale(
                                 scale: 1.5,
                                 child: Checkbox(
                                     checkColor: Colors.white,
-                                    fillColor: MaterialStateProperty.all(Color(0xfffa7914)),
-
-                                    shape:
-                                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                                    fillColor: MaterialStateProperty.all(
+                                        Color(0xfffa7914)),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(6)),
                                     value: ischecked,
                                     onChanged: (bool? valuee) {
                                       setState(() {
@@ -105,7 +106,10 @@ class _SignInScreenState extends State<SignInScreen> {
                                       });
                                     }),
                               ),
-                              Text("Remember me",style: TextStyle(color: Color(0xff7d7f86)),)
+                              Text(
+                                "Remember me",
+                                style: TextStyle(color: Color(0xff7d7f86)),
+                              )
                             ],
                           ),
                         ),
@@ -119,29 +123,44 @@ class _SignInScreenState extends State<SignInScreen> {
                                       shadowColor: Color(0xffdee1e6),
                                       elevation: 10,
                                       backgroundColor: Color(0xfffa7914),
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))
-
-                                  ),
-
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(50))),
                                   onPressed: () {
 
+                                    var isuserValid = false;
 
+                                    for (int i = 0; i < dataList.length; i++) {
+                                      if (dataList[i].email ==
+                                              txtemaillogin.text &&
+                                          dataList[i].password ==
+                                              txtpasswordogin.text) {
+                                        isuserValid = true;
+                                        Navigator.push(context,
+                                            MaterialPageRoute(
+                                          builder: (context) {
+                                            return OtpVerificationScreen();
+                                          },
+                                        ));
+                                        break;
 
-
-                                    if(emailList.contains(txtemaillogin.value.text )){
-                                      if( passwordList.contains(txtpasswordogin.value.text))
-                                        {
-                                          Navigator.pushReplacementNamed(context, "otp");
-                                        }
-                                      else{
-                                        showDialog(context: context, builder: (context){
-                                          return AlertDialog(
-                                            title: Text("Email or password is inncorrect`"),
-                                          );
-                                        });
                                       }
-                                    }
+                                      }
 
+                                    if(isuserValid == false)
+                                      {
+
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title: Text(
+                                                  "Email or password is inncorrect`"),
+                                            );
+                                          });
+
+
+                                    }
 
                                   },
                                   child: Text(
@@ -150,25 +169,50 @@ class _SignInScreenState extends State<SignInScreen> {
                                   ))),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 10,right:25),
-                          child: Row(mainAxisAlignment: MainAxisAlignment.end,children: [
-                            TextButton(onPressed: (){}, child: Row(
-                              children: [
-                                Icon(Icons.lock_outline,color: Color(0xfffa7914),size: 15,),
-                                SizedBox(width: 5,),
-                                Text("Forgot Password?",style: TextStyle(color: Color(0xfffa7914)),),
-                              ],
-                            ))
-                          ],),
+                          padding: const EdgeInsets.only(top: 10, right: 25),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TextButton(
+                                  onPressed: () {},
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.lock_outline,
+                                        color: Color(0xfffa7914),
+                                        size: 15,
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        "Forgot Password?",
+                                        style:
+                                            TextStyle(color: Color(0xfffa7914)),
+                                      ),
+                                    ],
+                                  ))
+                            ],
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 30),
-                          child: Text("Don't have an account?",style: TextStyle(color: Color(0xff7d7f86)),),
-                        ),Padding(
+                          child: Text(
+                            "Don't have an account?",
+                            style: TextStyle(color: Color(0xff7d7f86)),
+                          ),
+                        ),
+                        Padding(
                           padding: const EdgeInsets.only(bottom: 20),
-                          child: TextButton(child: Text("Sign Up",style: TextStyle(color: Color(0xfffa7914)),),onPressed: (){
-                            Navigator.pushNamed(context, "signup");
-                          },),
+                          child: TextButton(
+                            child: Text(
+                              "Sign Up",
+                              style: TextStyle(color: Color(0xfffa7914)),
+                            ),
+                            onPressed: () {
+                              Navigator.pushNamed(context, "signup");
+                            },
+                          ),
                         ),
                       ],
                     ),

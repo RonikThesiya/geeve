@@ -83,41 +83,45 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                             showDialog(
                                 barrierColor: Colors.black87,context: context, builder: (context){
                               return AlertDialog(
-                                elevation: 500,
+
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(Radius.circular(15))),
+                                elevation: 100,
+
                                 content: SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.4,
+                                  height: MediaQuery.of(context).size.height * 0.45,
                                   width: MediaQuery.of(context).size.height * 0.3,
-
-                                    child: Column(
-                                      children: [
-                                        Image.asset("assets/success.png",height: MediaQuery.of(context).size.height * 0.16,width: MediaQuery.of(context).size.width * 0.4,),
-                                        Text("Congratulation",style: TextStyle(color: Color(0xfffa7914)),),
-                                        SizedBox(height: 20,),
-                                        Text("Now you are registered",style: TextStyle(fontSize: 20),),
-                                        SizedBox(height: 18,),
-                                        Text("Get ready with geeve",style: TextStyle(color: Color(0xff7d7f86),fontSize: 14),),
-                                        Padding(
-                                          padding: const EdgeInsets.only(top: 30),
-                                          child: SizedBox(
-                                            height: MediaQuery.of(context).size.height * 0.06,
-                                            width: MediaQuery.of(context).size.width * 0.9,
-                                            child: ElevatedButton(
-                                                style: ButtonStyle(
-                                                    shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
-                                                    backgroundColor: MaterialStateProperty.all(
-                                                        Color(0xfffa7914))),
-                                                onPressed: () {
-                                                  Navigator.pushReplacementNamed(context, "nonprofit");
-                                                },
-                                                child: Text(
-                                                  "Start Now",
-                                                  style: TextStyle(fontSize: 16),
-                                                )),
-                                          ),
+                                  child: Column(
+                                    children: [
+                                      Image.asset("assets/success.png",height: MediaQuery.of(context).size.height * 0.16,width: MediaQuery.of(context).size.width * 0.4,),
+                                      Text("Congratulation",style: TextStyle(color: Color(0xfffa7914)),),
+                                      SizedBox(height: 20,),
+                                      Text("Now you are registered",style: TextStyle(fontSize: 20),),
+                                      SizedBox(height: 18,),
+                                      Text("Get ready with geeve",style: TextStyle(color: Color(0xff7d7f86),fontSize: 14),),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 50),
+                                        child: SizedBox(
+                                          height: MediaQuery.of(context).size.height * 0.06,
+                                          width: MediaQuery.of(context).size.width * 0.9,
+                                          child: ElevatedButton(
+                                              style: ButtonStyle(
+                                                  shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
+                                                  backgroundColor: MaterialStateProperty.all(
+                                                      Color(0xfffa7914))),
+                                              onPressed: () {
+                                                Navigator.pushReplacementNamed(context, "nonprofit");
+                                              },
+                                              child: Text(
+                                                "Start Now",
+                                                style: TextStyle(fontSize: 16),
+                                              )),
                                         ),
+                                      ),
 
-                                      ],
-                                    )));
+                                    ],
+                                  ),
+                                ));
 
                               });
 
