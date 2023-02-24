@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:geeve/screens/const.dart';
+import 'package:geeve/screens/non_profit_screen.dart';
 import 'package:geeve/screens/otp_verification_screen.dart';
+import 'package:geeve/utils/shared_pref.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -20,7 +22,6 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List email = ModalRoute.of(context)!.settings.arguments as List;
 
     return SafeArea(
         child: Scaffold(
@@ -126,41 +127,62 @@ class _SignInScreenState extends State<SignInScreen> {
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(50))),
-                                  onPressed: () {
+                                  onPressed: () async{
 
                                     var isuserValid = false;
 
-                                    for (int i = 0; i < dataList.length; i++) {
-                                      if (dataList[i].email ==
-                                              txtemaillogin.text &&
-                                          dataList[i].password ==
-                                              txtpasswordogin.text) {
-                                        isuserValid = true;
-                                        Navigator.push(context,
-                                            MaterialPageRoute(
-                                          builder: (context) {
-                                            return OtpVerificationScreen();
-                                          },
-                                        ));
-                                        break;
 
-                                      }
-                                      }
+                                    String? checkemail = txtemaillogin.text;
+                                    String? checkpassword = txtpasswordogin.text;
 
-                                    if(isuserValid == false)
-                                      {
+                                    String? shareEmail = await Email();
+                                    String? sharePassword = await Password();
 
-                                      showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return AlertDialog(
-                                              title: Text(
-                                                  "Email or password is inncorrect`"),
-                                            );
-                                          });
+                                    print(checkemail);
+                                    print(checkpassword);
+                                    print(shareEmail);
+                                    print(sharePassword);
 
-
+                                    if(checkemail == shareEmail && checkpassword == sharePassword)
+                                    {
+                                      Navigator.pushReplacementNamed(context, 'nonprofit');
                                     }
+                                    else{
+                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Your email or password is wrong")));
+                                    }
+
+
+                                    // for (int i = 0; i < dataList.length; i++) {
+                                    //   if (dataList[i].email ==
+                                    //           txtemaillogin.text &&
+                                    //       dataList[i].password ==
+                                    //           txtpasswordogin.text) {
+                                    //     isuserValid = true;
+                                    //     Navigator.push(context,
+                                    //         MaterialPageRoute(
+                                    //       builder: (context) {
+                                    //         return NonprofitScreen();
+                                    //       },
+                                    //     ));
+                                    //     break;
+                                    //
+                                    //   }
+                                    //   }
+                                    //
+                                    // if(isuserValid == false)
+                                    //   {
+                                    //
+                                    //   showDialog(
+                                    //       context: context,
+                                    //       builder: (context) {
+                                    //         return AlertDialog(
+                                    //           title: Text(
+                                    //               "Email or password is inncorrect`"),
+                                    //         );
+                                    //       });
+                                    //
+                                    //
+                                    // }
 
                                   },
                                   child: Text(

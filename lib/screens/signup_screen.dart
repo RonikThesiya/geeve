@@ -1,9 +1,21 @@
+
 import 'package:flutter/material.dart';
 import 'package:geeve/screens/const.dart';
+import 'package:geeve/utils/shared_pref.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpScreen extends StatefulWidget {
 
-  const SignUpScreen({Key? key,}) : super(key: key);
+final int? index;
+static TextEditingController txtemail = TextEditingController();
+static TextEditingController txtpassword = TextEditingController();
+static TextEditingController txtrepassword = TextEditingController();
+static TextEditingController txtfirstname = TextEditingController();
+static TextEditingController txtlastname = TextEditingController();
+static TextEditingController txtphone = TextEditingController();
+
+
+   SignUpScreen({Key? key, this.index,}) : super(key: key);
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -14,59 +26,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController txtemail = TextEditingController();
-  TextEditingController txtpassword = TextEditingController();
-  TextEditingController txtrepassword = TextEditingController();
-  TextEditingController txtfirstname = TextEditingController();
-  TextEditingController txtlastname = TextEditingController();
-  TextEditingController txtphone = TextEditingController();
+
+
+  late SharedPreferences sharedPreferences;
+
 
 
 
   @override
   void initState() {
 
+    ReadData();
 
-
-
-    // for(int i = 0 ; i< data.length;i++)
-    //   {
-    //     if (txtfirstname.text.isEmpty) {
-    //       txtfirstname = TextEditingController(text: data[i].firstname);
-    //
-    //       if (txtlastname.text.isEmpty) {
-    //         txtlastname = TextEditingController(text: "${data[i].lastname}");
-    //
-    //       };
-    //       if (txtphone.text.isEmpty) {
-    //         txtphone = TextEditingController(text: "${data[i].phone}");
-    //
-    //       };
-    //       if (txtemail.text.isEmpty) {
-    //         txtemail = TextEditingController(text: "${data[i].email}");
-    //
-    //       };
-    //       if (txtpassword.text.isEmpty) {
-    //         txtpassword = TextEditingController(text: "${data[i].password}");
-    //
-    //       };
-    //       if (txtrepassword.text.isEmpty) {
-    //         txtrepassword = TextEditingController(text: "${data[i].rePassword}");
-    //
-    //       };
-    //
-    //     }
-    //   }
-
-
-    // if(u1!=null)
-    //   {
-    //     u1 = ModalRoute.of(context)!.settings.arguments as userDetails;
-    //
-    //     getData();
-    //   }
-
-
+    print("==========================${widget.index}============================");
+ if(widget.index != null)
+   {
+     getData();
+   }
 
 
 
@@ -75,6 +51,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   void getData()
   {
+    SignUpScreen.txtfirstname.text = dataList[widget.index!].firstname!;
+    SignUpScreen.txtlastname.text = dataList[widget.index!].lastname!;
+    SignUpScreen.txtphone.text = dataList[widget.index!].phone!;
+    SignUpScreen.txtemail.text = dataList[widget.index!].email!;
+    SignUpScreen.txtpassword.text = dataList[widget.index!].password!;
+    SignUpScreen.txtrepassword.text = dataList[widget.index!].rePassword!;
 
   }
   @override
@@ -82,14 +64,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
 
 
-    dynamic name = ModalRoute.of(context)!.settings.arguments ;
-
-    if(txtfirstname.text.isEmpty)
-    {
-       txtfirstname = TextEditingController(text: "${name}");
-    }
-
-    return SafeArea(
+     return SafeArea(
         child: Scaffold(
             backgroundColor: Color(0xffffffff),
             body: Stack(
@@ -121,7 +96,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   return "Please Enter FirstName";
                                 }
                               },
-                              controller: txtfirstname,
+                              controller: SignUpScreen.txtfirstname,
                               decoration: InputDecoration(
                                 hintText: "First Name",
                                 filled: true,
@@ -143,7 +118,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   return "Please Enter LastName";
                                 }
                               },
-                              controller: txtlastname,
+                              controller: SignUpScreen.txtlastname,
                               decoration: InputDecoration(
                                 hintText: "Last Name",
                                 filled: true,
@@ -166,7 +141,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 }
                               },
                               keyboardType: TextInputType.number,
-                              controller: txtphone,
+                              controller: SignUpScreen.txtphone,
                               decoration: InputDecoration(
                                 hintText: "Phone",
                                 filled: true,
@@ -188,7 +163,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   return "Please Enter Email";
                                 }
                               },
-                              controller: txtemail,
+                              controller: SignUpScreen.txtemail,
                               decoration: InputDecoration(
                                 hintText: "Email",
                                 filled: true,
@@ -210,11 +185,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 if (value == null || value.isEmpty) {
                                   return "Please Enter Password";
                                 }
-                                if (value != txtrepassword.text) {
+                                if (value != SignUpScreen.txtrepassword.text) {
                                   return " Password does not match";
                                 }
                               },
-                              controller: txtpassword,
+                              controller: SignUpScreen.txtpassword,
                               decoration: InputDecoration(
                                 hintText: "Password",
                                 filled: true,
@@ -236,11 +211,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 if (value == null || value.isEmpty) {
                                   return "Please Re-Enter Password";
                                 }
-                                if (value != txtpassword.text) {
+                                if (value != SignUpScreen.txtpassword.text) {
                                   return " Password does not match";
                                 }
                               },
-                              controller: txtrepassword,
+                              controller: SignUpScreen.txtrepassword,
                               decoration: InputDecoration(
                                 hintText: "Re-enter Password",
                                 filled: true,
@@ -293,7 +268,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 height:
                                     MediaQuery.of(context).size.height * 0.07,
                                 width: MediaQuery.of(context).size.width * 0.8,
-                                child: ElevatedButton(
+                                child:  ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                       shadowColor: Color(0xffdee1e6),
                                       elevation: 10,
@@ -301,7 +276,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(50))),
-                                  onPressed: () {
+                                  onPressed: () async{
                                     if (_formKey.currentState!.validate()) {
                                       if (ischecked == false) {
                                         ScaffoldMessenger.of(context)
@@ -310,30 +285,91 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                 content: Text(
                                                     "Please Accept Term And condition")));
                                       } else {
-                                        dataList.add(userDetails(
-                                          firstname: txtfirstname.text,
-                                          lastname: txtlastname.text,
-                                          phone: txtphone.text,
-                                          email: txtemail.text,
-                                          password: txtpassword.text,
-                                          rePassword: txtrepassword.text,
-                                        ));
-                                        Navigator.pushReplacementNamed(
-                                            context, "sigin",
-                                            arguments: dataList);
+                                        if(widget.index == null)
+                                          {
 
-                                        
+                                            StoreData();
+                                            Navigator.pushReplacementNamed(
+                                              context, "sigin",
+                                              // arguments: dataList
+                                            );
+
+                                            // var Firstnameread = await FirstName();
+                                            // var Lastnameread = await Lastname();
+                                            // var Phoneread = await Phone();
+                                            // var Emailread = await Email();
+                                            // var Passwordread = await Password();
+                                            // var Repasswrodread = await RePassword();
+
+
+                                            // dataList.add(userDetails(
+                                            //   firstname: "${Firstnameread}",
+                                            //   lastname: "${Lastnameread}",
+                                            //   phone: "${Phoneread}",
+                                            //   email: "${Emailread}",
+                                            //   password: "${Passwordread}",
+                                            //   rePassword: "${Repasswrodread}",
+                                            // ));
+
+                                          }
+                                       else
+                                         {
+                                         dataList[widget.index!].firstname = SignUpScreen.txtfirstname.text;
+                                         dataList[widget.index!].lastname = SignUpScreen.txtlastname.text;
+                                         dataList[widget.index!].phone = SignUpScreen.txtphone.text;
+                                         dataList[widget.index!].email = SignUpScreen.txtemail.text;
+                                         dataList[widget.index!].password = SignUpScreen.txtpassword.text;
+                                         dataList[widget.index!].rePassword = SignUpScreen.txtrepassword.text;
+
+                                         Navigator.pushReplacementNamed(
+                                             context, "nonprofit",
+                                             arguments: dataList);
+
+                                         }
+
+
                                       }
                                     }
                                   },
-                                  child: data.isEmpty
-                                      ? Text("Sign Up")
-                                      : Text(
-                                          "Update",
-                                          style: TextStyle(fontSize: 16),
-                                        ),
-                                )),
-                          ),
+                                  child: widget.index==null ? Text("Sign Up"):Text("Update"),
+                                )
+                                // ElevatedButton(
+                                //   style: ElevatedButton.styleFrom(
+                                //       shadowColor: Color(0xffdee1e6),
+                                //       elevation: 10,
+                                //       backgroundColor: Color(0xfffa7914),
+                                //       shape: RoundedRectangleBorder(
+                                //           borderRadius:
+                                //           BorderRadius.circular(50))),
+                                //   onPressed: () {
+                                //     if (_formKey.currentState!.validate()) {
+                                //       if (ischecked == false) {
+                                //         ScaffoldMessenger.of(context)
+                                //             .showSnackBar(SnackBar(
+                                //             duration: Duration(seconds: 2),
+                                //             content: Text(
+                                //                 "Please Accept Term And condition")));
+                                //       } else {
+                                //
+                                //         data.add(userDetails(
+                                //           firstname: txtfirstname.text,
+                                //           lastname: txtlastname.text,
+                                //           phone: txtphone.text,
+                                //           email: txtemail.text,
+                                //           password: txtpassword.text,
+                                //           rePassword: txtrepassword.text,
+                                //         ));
+                                //         Navigator.pushReplacementNamed(
+                                //             context, "sigin",
+                                //             arguments: dataList);
+                                //
+                                //
+                                //       }
+                                //     }
+                                //   },
+                                //   child: Text("Update"),
+                                // )),
+                          )),
                           Padding(
                             padding: const EdgeInsets.only(top: 40),
                             child: Text("Already have an account?"),

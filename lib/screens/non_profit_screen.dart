@@ -465,35 +465,28 @@ class _NonprofitScreenState extends State<NonprofitScreen> {
                                   )),
                               IconButton(
                                   onPressed: () {
-                                    data.add(userDetails(
-                                      firstname: dataList[index].firstname,
-                                      lastname: dataList[index].lastname,
-                                      phone: dataList[index].phone,
-                                      email: dataList[index].email,
-                                      password: dataList[index].password,
-                                      rePassword: dataList[index].rePassword,
-                                    ));
 
-                                    print(dataList[index].firstname);
-                                    print(dataList[index].lastname);
-                                    print(dataList[index].phone);
-                                    print(dataList[index].email);
-                                    print(dataList[index].password);
-                                    print(dataList[index].rePassword);
-
-                                    // dataList[index].firstname.replaceAll("${data[index].firstname}", "${dataList[index].firstname}");
-                                    // userDetails u1 = userDetails(
+                                    // data.add(userDetails(
                                     //   firstname: dataList[index].firstname,
-                                    //   email: dataList[index].email,
                                     //   lastname: dataList[index].lastname,
-                                    //   password: dataList[index].password,
                                     //   phone: dataList[index].phone,
+                                    //   email: dataList[index].email,
+                                    //   password: dataList[index].password,
                                     //   rePassword: dataList[index].rePassword,
-                                    // );
+                                    // ));
+                                    //
+                                    // print(dataList[index].firstname);
+                                    // print(dataList[index].lastname);
+                                    // print(dataList[index].phone);
+                                    // print(dataList[index].email);
+                                    // print(dataList[index].password);
+                                    // print(dataList[index].rePassword);
 
-                                    // Navigator.push(context, MaterialPageRoute(builder: (context){Sig}));
 
-                                    Navigator.pushNamed(context, 'signup',arguments: data[index]);
+
+                                    Navigator.push(context, MaterialPageRoute(builder: (context){return SignUpScreen(index: index,);}));
+
+                                    // Navigator.pushNamed(context, 'signup',);
                                     // Navigator.pushReplacementNamed(
                                     //     context, 'signup',
                                     //     arguments: dataList[index]);
