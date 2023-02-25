@@ -4,12 +4,17 @@ import 'package:geeve/screens/Splash_screen.dart';
 import 'package:geeve/screens/non_profit_screen.dart';
 import 'package:geeve/screens/otp_verification_screen.dart';
 import 'package:geeve/screens/registration_screen.dart';
+import 'package:geeve/screens/shared.dart';
 import 'package:geeve/screens/signin_screen.dart';
 import 'package:geeve/screens/signup_screen.dart';
 
 
-void main()
+void main()async
 {
+  WidgetsFlutterBinding.ensureInitialized();
+  await preferences.init();
+
+
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,

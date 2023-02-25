@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geeve/screens/const.dart';
+import 'package:geeve/screens/shared.dart';
 import 'package:geeve/screens/signup_screen.dart';
 
 class NonprofitScreen extends StatefulWidget {
@@ -17,6 +18,14 @@ class _NonprofitScreenState extends State<NonprofitScreen> {
   Color c4 = Color(0xff7d7f86);
   Color c5 = Color(0xff7d7f86);
   Color c6 = Color(0xff7d7f86);
+
+
+  String uFirstname = preferences.getString(SharedPreference.userFirstname)??"";
+  String uLastname = preferences.getString(SharedPreference.userLastName)??"";
+  String uPhone = preferences.getString(SharedPreference.userPhone)??"";
+  String uEmail = preferences.getString(SharedPreference.userEmail)??"";
+  String uPassword = preferences.getString(SharedPreference.userPassword)??"";
+  String uRepassword = preferences.getString(SharedPreference.userRepassword)??"";
 
   @override
   Widget build(BuildContext context) {
@@ -338,6 +347,7 @@ class _NonprofitScreenState extends State<NonprofitScreen> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50))),
                         onPressed: () {
+                          preferences.clearUserItem();
                           Navigator.pushReplacementNamed(context, "signup");
                         },
                         child: Row(
@@ -406,13 +416,54 @@ class _NonprofitScreenState extends State<NonprofitScreen> {
                   ),
                 ],
               ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 35, left: 35, right: 35),
-                  child: ListView.builder(
-                      itemCount: dataList.length,
-                      itemBuilder: (context, index) {
-                        return Container(
+              Padding(
+                padding: const EdgeInsets.only(top: 35, left: 35, right: 35),
+                child:
+                       InkWell(
+                         onDoubleTap: () {
+                           showDialog(
+                               context: context,
+                               builder: (context) {
+                                 return AlertDialog(
+                                   title: Text("Are You Sure??"),
+                                   actions: [
+                                     TextButton(
+                                         onPressed: () {
+                                           Navigator.pop(context);
+                                         },
+                                         child: Text(
+                                           "Cancle",
+                                           style: TextStyle(
+                                               color: Colors.red),
+                                         )),
+                                     ElevatedButton(
+                                         style:
+                                         ElevatedButton.styleFrom(
+                                           backgroundColor: Colors.red,
+                                         ),
+                                         onPressed: () {
+                                           setState(() {
+                                             preferences.clearUserItem();
+                                             // preferences.clearUserItem(
+                                             //   firstName: uFirstname,
+                                             //   lastName: uLastname,
+                                             //   phone: uPhone,
+                                             //   password: uPassword,
+                                             //   repassword: uRepassword,
+                                             // );
+                                             print(uFirstname);
+
+
+                                           });
+
+                                           Navigator.pop(context);
+                                         },
+                                         child: Text("Delete")),
+                                   ],
+                                 );
+                               });
+                         },
+                         child: Container(
                           height: 70,
                           decoration: BoxDecoration(
                               border: Border(
@@ -435,8 +486,9 @@ class _NonprofitScreenState extends State<NonprofitScreen> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "${dataList[index].firstname} "
-                                      "${dataList[index].lastname}",
+                                      "${uFirstname} " "${uLastname}",
+                                      // "${dataList[index].firstname} "
+                                      // "${dataList[index].lastname}",
                                       style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold),
@@ -444,8 +496,8 @@ class _NonprofitScreenState extends State<NonprofitScreen> {
                                     SizedBox(
                                       height: 5,
                                     ),
-                                    Text(
-                                      dataList[index].phone!,
+                                    Text("${uPhone}",
+                                      // dataList[index].phone!,
                                       style: TextStyle(
                                           fontSize: 10,
                                           color: Color(0xff7d7f86)),
@@ -458,13 +510,16 @@ class _NonprofitScreenState extends State<NonprofitScreen> {
                                   // width:
                                   //     MediaQuery.of(context).size.height * 0.08,
                                   alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    dataList[index].password!,
+                                  child: Text( "${uPassword}",
+                                    // dataList[index].password!,
                                     style: TextStyle(
                                         fontSize: 14, color: Color(0xff7d7f86)),
                                   )),
                               IconButton(
                                   onPressed: () {
+
+
+                                    Navigator.push(context, MaterialPageRoute(builder: (context){return SignUpScreen();}));
 
                                     // data.add(userDetails(
                                     //   firstname: dataList[index].firstname,
@@ -484,7 +539,6 @@ class _NonprofitScreenState extends State<NonprofitScreen> {
 
 
 
-                                    Navigator.push(context, MaterialPageRoute(builder: (context){return SignUpScreen(index: index,);}));
 
                                     // Navigator.pushNamed(context, 'signup',);
                                     // Navigator.pushReplacementNamed(
@@ -498,10 +552,10 @@ class _NonprofitScreenState extends State<NonprofitScreen> {
                                   ))
                             ],
                           ),
-                        );
-                      }),
-                ),
-              )
+                      ),
+                       )
+                    ),
+
             ],
           ),
         ],

@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:geeve/screens/const.dart';
 import 'package:geeve/screens/non_profit_screen.dart';
 import 'package:geeve/screens/otp_verification_screen.dart';
+import 'package:geeve/screens/shared.dart';
 import 'package:geeve/utils/shared_pref.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -14,11 +18,38 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   bool ischecked = false;
 
+  late SharedPreferences sharedPreferences ;
 
 
   TextEditingController txtemaillogin = TextEditingController();
   TextEditingController txtpasswordogin = TextEditingController();
 
+  // String uEmail = preferences.getString(SharedPreference.userEmail)??"";
+  // String uPassword = preferences.getString(SharedPreference.userPassword)??"";
+
+  String uFirstname =
+      preferences.getString(SharedPreference.userFirstname) ?? "";
+  String uLastname = preferences.getString(SharedPreference.userLastName) ?? "";
+  String uPhone = preferences.getString(SharedPreference.userPhone) ?? "";
+  String uEmail = preferences.getString(SharedPreference.userEmail) ?? "";
+  String uPassword = preferences.getString(SharedPreference.userPassword) ?? "";
+  String uRepassword = preferences.getString(SharedPreference.userRepassword) ??
+      "";
+
+
+
+  @override
+  void initState() {
+
+    getData();
+
+    super.initState();
+  }
+
+  void getData()async
+  {
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -132,24 +163,34 @@ class _SignInScreenState extends State<SignInScreen> {
                                     var isuserValid = false;
 
 
+
                                     String? checkemail = txtemaillogin.text;
                                     String? checkpassword = txtpasswordogin.text;
 
-                                    String? shareEmail = await Email();
-                                    String? sharePassword = await Password();
+                                    print(uEmail);
+                                    print(uPassword);
 
-                                    print(checkemail);
-                                    print(checkpassword);
-                                    print(shareEmail);
-                                    print(sharePassword);
 
-                                    if(checkemail == shareEmail && checkpassword == sharePassword)
+
+                                    if(checkemail == uEmail && checkpassword == uPassword)
                                     {
+                                      dataList.add(userDetails(
+                                        firstname: "${uFirstname}",
+                                        lastname: "${uLastname}",
+                                        phone: "${uPhone}",
+                                        email: "${uEmail}",
+                                        password: "${uPassword}",
+                                        rePassword: "${uRepassword}",
+                                      ));
                                       Navigator.pushReplacementNamed(context, 'nonprofit');
                                     }
                                     else{
                                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Your email or password is wrong")));
                                     }
+
+
+
+
 
 
                                     // for (int i = 0; i < dataList.length; i++) {
