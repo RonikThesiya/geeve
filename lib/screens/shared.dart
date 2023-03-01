@@ -1,3 +1,4 @@
+import 'package:geeve/screens/const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final preferences = SharedPreference();
@@ -33,6 +34,7 @@ class SharedPreference {
     pref!.setString(userEmail, email);
     pref!.setString(userPassword, password);
     pref!.setString(userRepassword, repassword);
+    pref!.setString(userFirstname, userDetails(firstname: firstName, lastname: lastName, phone: phone, email: email, password: password, rePassword: repassword).toString());
   }
 
   void clearUserItem(
